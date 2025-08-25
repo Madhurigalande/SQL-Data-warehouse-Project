@@ -1,5 +1,7 @@
----- create Table in bronze layer ------
-# Their are two data sets crm and erp---> for each dataset their are 3 csv file and i have to created 3 tables
+---- create Table in bronze --
+if object_id ('Bronze.crm_cust_info','U') is not null 
+drop table Bronze.crm_cust_info;
+
 create table Bronze.crm_cust_info(
   cst_id int,
   cust_key varchar(20),
@@ -11,6 +13,9 @@ create table Bronze.crm_cust_info(
   );
 
 
+if object_id ('Bronze.crm_prod_info','U') is not null 
+drop table Bronze.crm_prod_info;
+
 create table Bronze.crm_prod_info(
 prd_id  int,
 prd_key nvarchar(50),
@@ -20,6 +25,9 @@ prd_line nvarchar(50),
 prd_start_dt datetime,
 prd_end_dt datetime 
 );
+
+if object_id ('Bronze.crm_sales_details','U') is not null 
+drop table Bronze.crm_sales_info;
 
 
 create table Bronze.crm_sales_details(
@@ -34,12 +42,19 @@ sls_quantity int,
 sls_price int
 );
 
-# create table for erp dataset---> it has 3 files so 3 tables are created below 
+
+if object_id ('Bronze.erp_loc_a101','U') is not null 
+drop table Bronze.erp_loc_a101;
+
 create table Bronze.erp_loc_a101
 (
 cid nvarchar(50),
 cntry nvarchar(50)
 );
+
+if object_id ('Bronze.erp_cust_az12','U') is not null 
+drop table Bronze.erp_cust_az12;
+
 
 create table Bronze.erp_cust_az12
 (
@@ -48,6 +63,9 @@ bdate date,
 gen nvarchar(50)
 );
 
+
+if object_id ('Bronze.erp_px_cat_g1v2','U') is not null 
+drop table Bronze.erp_px_cat_g1v2;
 
 create table Bronze.erp_px_cat_g1v2
 (
