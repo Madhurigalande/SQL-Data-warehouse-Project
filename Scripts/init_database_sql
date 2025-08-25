@@ -1,0 +1,16 @@
+----Create Database and Schema ---
+
+# use master database
+use master;
+
+# create database
+#first check database is already exit 
+
+create database DataWarehouse;
+Go
+use DataWarehouse;
+Go
+
+Create Schema Bronze;
+Create Schema Silver;
+Create Schema Gold;
