@@ -1,0 +1,117 @@
+---build Stored Procedure ---
+create or alter procedure bronze.load_bronze
+as
+begin
+  declare @start_time datetime,@end_time datetime
+begin try
+Print'--------------------------------------'
+print 'loading Data Bronze Layer into CRM '
+print'---------------------------------------'
+
+
+set @start_time=getdate();
+Truncate table Bronze.crm_cust_info;
+bulk insert Bronze.crm_cust_info
+from 'D:\DataWareHouse Project\Dataset\datasets\source_crm\cust_info.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+
+set @start_time=getdate();
+Truncate table Bronze.crm_prod_info;
+bulk insert Bronze.crm_prod_info
+from 'D:\DataWareHouse Project\Dataset\datasets\source_crm\prd_info.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+
+set @start_time=getdate();
+Truncate table Bronze.crm_cust_info;
+bulk insert Bronze.crm_cust_info
+from 'D:\DataWareHouse Project\Dataset\datasets\source_crm\cust_info.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+
+set @start_time=getdate();
+Truncate table Bronze.crm_sales_details;
+bulk insert Bronze.crm_sales_details
+from 'D:\DataWareHouse Project\Dataset\datasets\source_crm\sales_details.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+
+Print'--------------------------------------'
+print 'loading data Bronze Layer into ERP tables'
+print'---------------------------------------'
+
+set @start_time=getdate();
+Truncate table Bronze.erp_cust_data;
+bulk insert Bronze.erp_cust_data
+from 'D:\DataWareHouse Project\Dataset\datasets\source_erp\CUST_Data.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+set @start_time=getdate();
+Truncate table Bronze.erp_loc_data;
+bulk insert Bronze.erp_loc_data
+from 'D:\DataWareHouse Project\Dataset\datasets\source_erp\loc_data.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+
+set @end_time=getdate();
+print '>> load duration:' +cast(datediff(second,@start_time,@end_time) As nvarchar) +'seconds';
+
+
+
+set @start_time=getdate();
+Truncate table Bronze.erp_Prod_cat_subcat_data;
+bulk insert Bronze.erp_Prod_cat_subcat_data
+from 'D:\DataWareHouse Project\Dataset\datasets\source_erp\Prod_CAT_Data.csv'
+with(
+firstrow=2,
+fieldterminator=',',
+tablock
+);
+
+
+
+end try
+  begin catch
+     print '-------Error-----'
+    end catch
+end;
